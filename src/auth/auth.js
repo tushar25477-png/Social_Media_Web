@@ -42,6 +42,9 @@ export class AuthService {
             const userAccount = await this.account.deleteSessions();
             return userAccount;
         } catch (error) {
+            if (error?.code === 401) {
+                return null;
+            }
             throw error;
         }
     }
@@ -51,10 +54,11 @@ export class AuthService {
             const userAccount = await this.account.get();
             return userAccount;
         } catch (error) {
+            if (error?.code === 401) {
+                return null;
+            }
             throw error;
         }
-
-        return null;
     }
 }
 
